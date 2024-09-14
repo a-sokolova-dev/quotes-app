@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import type { JSX } from 'react'
 
-import { QuoteCard } from '../../components/QuoteCard/QuoteCard.tsx'
+import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
 
 const mockQuotes = [
   {
