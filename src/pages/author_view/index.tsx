@@ -13,12 +13,7 @@ const mockRandomQuote = {
 
 const AuthorView = (): JSX.Element => {
   return (
-    <Box
-      margin="0 auto"
-      maxWidth="960px"
-      padding="40px 0px 60px"
-      textAlign="center"
-    >
+    <>
       <Typography
         fontSize="40px"
         fontWeight="bold"
@@ -36,7 +31,7 @@ const AuthorView = (): JSX.Element => {
       >
         <QuoteCard quote={mockRandomQuote} />
       </Box>
-    </Box>
+    </>
   )
 }
 
