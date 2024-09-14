@@ -1,0 +1,37 @@
+{
+  "name": "quotes-app",
+  "license": "MIT",
+  "author": "Anna Sokolova <a.sokolova.dev@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "test": "pnpm run /^test:/",
+    "start": "vite",
+    "build": "tsc -b && vite build",
+    "format": "prettier -w **/*.{js,ts,tsx,json} *.{js,json}",
+    "test:js": "eslint .",
+    "test:unit": "vitest",
+    "test:format": "prettier --check **/*.{js,ts,tsx,json} *.{js,json}"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/eslint-plugin": "^1.1.4",
+    "eslint": "^9.9.0",
+    "eslint-config": "github:a-sokolova-dev/eslint-config",
+    "globals": "^15.9.0",
+    "jsdom": "^25.0.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.0.1",
+    "vite": "^5.4.1",
+    "vitest": "^2.1.1"
+  }
+}
