@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import type { JSX } from 'react'
 
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
@@ -22,15 +22,7 @@ const AuthorView = (): JSX.Element => {
       >
         {mockRandomQuote.a}
       </Typography>
-      <Box
-        alignItems="center"
-        display="flex"
-        flexDirection="column"
-        gap="36px"
-        justifyContent="center"
-      >
-        <QuoteCard quote={mockRandomQuote} />
-      </Box>
+      <QuoteCard quote={mockRandomQuote} />
     </>
   )
 }
