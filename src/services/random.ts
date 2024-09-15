@@ -13,7 +13,7 @@ export async function getAuthorRandomQuote(
   return quote
 }
 
-export async function fetchRandomQuoteByAuthor(
+async function fetchRandomQuoteByAuthor(
   tag: string
 ): Promise<null | Quote[]> {
   try {
@@ -42,7 +42,7 @@ export async function getRandomQuoteByKeyword(
   return quote
 }
 
-export async function fetchRandomQuoteByKeyword(
+async function fetchRandomQuoteByKeyword(
   tag: string
 ): Promise<null | Quote[]> {
   try {

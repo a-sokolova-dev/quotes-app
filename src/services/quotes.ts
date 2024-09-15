@@ -24,18 +24,18 @@ export async function getDailyQuotes(count: number): Promise<Quote[]> {
   return selectedQuotes
 }
 
-export function getStoredQuotes(): null | StoredQuotesData {
+function getStoredQuotes(): null | StoredQuotesData {
   let stored = window.localStorage.getItem(STORAGE_KEY)
   return stored ? JSON.parse(stored) : null
 }
 
-export function isStoredDateOutdated(storedDate: string): boolean {
+function isStoredDateOutdated(storedDate: string): boolean {
   let currentDateString = new Date().toDateString()
   let storedDateString = new Date(storedDate).toDateString()
   return currentDateString !== storedDateString
 }
 
-export async function fetchQuotes(): Promise<null | Quote[]> {
+async function fetchQuotes(): Promise<null | Quote[]> {
   try {
     let response = await fetch(QUOTE_API_URL)
     if (!response.ok) {
@@ -50,7 +50,7 @@ export async function fetchQuotes(): Promise<null | Quote[]> {
   }
 }
 
-export function selectQuotes(quotes: Quote[], count: number): Quote[] {
+function selectQuotes(quotes: Quote[], count: number): Quote[] {
   return quotes.slice(0, count)
 }
 
