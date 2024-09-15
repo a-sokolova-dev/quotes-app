@@ -5,3 +5,7 @@ export interface Quote {
   i: string
   q: string
 }
+
+export interface QuoteWithTag extends Quote {
+    t: string
+}

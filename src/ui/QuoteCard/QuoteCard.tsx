@@ -1,14 +1,14 @@
-import { Avatar, Box, Card, CardContent, Typography } from '@mui/material'
+import { Avatar, Box, Card, CardContent, Link, Typography } from '@mui/material'
 import type { JSX } from 'react'
 
-import type { Quote } from '../../types'
+import type { QuoteWithTag } from '../../types/quote.ts'
 
 export type QuoteCardProps = {
-  quote: Quote
+  quote: QuoteWithTag
 }
 
 export const QuoteCard = ({ quote }: QuoteCardProps): JSX.Element => {
-  const { a, i, q } = quote
+  const { a, i, q, t } = quote
   return (
     <Card sx={{ borderRadius: '10px' }} variant="outlined">
       <CardContent
@@ -30,9 +30,11 @@ export const QuoteCard = ({ quote }: QuoteCardProps): JSX.Element => {
           }}
         >
           <Avatar alt={a} src={i} />
-          <Typography fontSize="20px" fontStyle="italic">
-            {a}
-          </Typography>
+          <Link href={`/authors/${t}`}>
+            <Typography fontSize="20px" fontStyle="italic">
+              {a}
+            </Typography>
+          </Link>
         </Box>
       </CardContent>
     </Card>

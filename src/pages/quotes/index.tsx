@@ -2,11 +2,11 @@ import { Box, Typography } from '@mui/material'
 import { type JSX, useCallback, useEffect, useState } from 'react'
 
 import { getDailyQuotes } from '../../services/quotes.ts'
-import type { Quote } from '../../types/index.ts'
+import type { QuoteWithTag } from '../../types/quote.ts'
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
 
 const Quotes = (): JSX.Element => {
-  const [dailyQuotes, setDailyQuotes] = useState<Quote[]>([])
+  const [dailyQuotes, setDailyQuotes] = useState<QuoteWithTag[]>([])
 
   const fetchQuotes = useCallback(async (): Promise<void> => {
     const quotes = await getDailyQuotes(5)
