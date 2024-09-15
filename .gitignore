@@ -23,5 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-#testing
+# Testing
 coverage
+
+# Environmental variables
+*.env

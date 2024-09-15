@@ -1,47 +1,22 @@
 import { Box, Typography } from '@mui/material'
-import type { JSX } from 'react'
+import { type JSX, useCallback, useEffect, useState } from 'react'
 
+import { getDailyQuotes } from '../../services/quotes.ts'
+import type { Quote } from '../../types/index.ts'
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
 
-const mockQuotes = [
-  {
-    a: 'Tony Robbins',
-    c: '63',
-    h: '<blockquote>&ldquo;Lack of emotion causes lack of progress and lack of motivation.&rdquo; &mdash; <footer>Tony Robbins</footer></blockquote>',
-    i: 'https://zenquotes.io/img/tony-robbins.jpg',
-    q: 'Lack of emotion causes lack of progress and lack of motivation.'
-  },
-  {
-    a: 'Elbert Hubbard',
-    c: '67',
-    h: '<blockquote>&ldquo;The friend is the man who knows all about you, and still likes you.&rdquo; &mdash; <footer>Elbert Hubbard</footer></blockquote>',
-    i: 'https://zenquotes.io/img/elbert-hubbard.jpg',
-    q: 'The friend is the man who knows all about you, and still likes you.'
-  },
-  {
-    a: 'Tony Robbins',
-    c: '65',
-    h: '<blockquote>&ldquo;Lack of emotion causes lack of progress and lack of motivation.&rdquo; &mdash; <footer>Tony Robbins</footer></blockquote>',
-    i: 'https://zenquotes.io/img/tony-robbins.jpg',
-    q: 'Lack of emotion and skills causes lack of progress and lack of motivation.'
-  },
-  {
-    a: 'Elbert Hubbard',
-    c: '67',
-    h: '<blockquote>&ldquo;The friend is the man who knows all about you, and still likes you.&rdquo; &mdash; <footer>Elbert Hubbard</footer></blockquote>',
-    i: 'https://zenquotes.io/img/elbert-hubbard.jpg',
-    q: 'The friend is the person who knows all about you, and still likes you.'
-  },
-  {
-    a: 'Tony Robbins',
-    c: '63',
-    h: '<blockquote>&ldquo;Lack of emotion causes lack of progress and lack of motivation.&rdquo; &mdash; <footer>Tony Robbins</footer></blockquote>',
-    i: 'https://zenquotes.io/img/tony-robbins.jpg',
-    q: 'Lack of passion causes lack of progress and lack of motivation.'
-  }
-]
-
 const Quotes = (): JSX.Element => {
+  const [dailyQuotes, setDailyQuotes] = useState<Quote[]>([])
+
+  const fetchQuotes = useCallback(async (): Promise<void> => {
+    const quotes = await getDailyQuotes(5)
+    setDailyQuotes(quotes)
+  }, [])
+
+  useEffect(() => {
+    fetchQuotes()
+  }, [fetchQuotes])
+
   return (
     <>
       <Typography
@@ -59,7 +34,7 @@ const Quotes = (): JSX.Element => {
         gap="36px"
         justifyContent="center"
       >
-        {mockQuotes.map(q => (
+        {dailyQuotes.map(q => (
           <QuoteCard key={q.q} quote={q} />
         ))}
       </Box>
