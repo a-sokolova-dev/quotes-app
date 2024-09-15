@@ -1,26 +1,30 @@
 import { Box, Typography } from '@mui/material'
 import { type JSX, useCallback, useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { getAuthors } from '../../services/authors.ts'
 import { getDailyQuotes } from '../../services/quotes.ts'
 import type { Author } from '../../types/author.ts'
 import type { Quote } from '../../types/quote.ts'
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
+import { SearchBar } from '../../ui/SearchBar/SearchBar.tsx'
 
 const DEFAULT_AUTHOR_TAG = 'unknown'
 
 const Quotes = (): JSX.Element => {
+  const navigate = useNavigate()
+
   const [dailyQuotes, setDailyQuotes] = useState<Quote[]>([])
   const [authors, setAuthors] = useState<Author[]>([])
 
-  const authorsWithTags: Map<Author['a'], Author['t']> = useMemo(() => {
+  const tagByAuthorName: Map<Author['a'], Author['t']> = useMemo(() => {
     return new Map(authors.map(author => [author.a, author.t]))
   }, [authors])
 
   const quotesWithAuthorTags = useMemo(() => {
     return dailyQuotes.map(quote => ({
       ...quote,
-      t: authorsWithTags.get(quote.a) || DEFAULT_AUTHOR_TAG
+      t: tagByAuthorName.get(quote.a) || DEFAULT_AUTHOR_TAG
     }))
   }, [dailyQuotes, authors])
 
@@ -39,6 +43,10 @@ const Quotes = (): JSX.Element => {
     fetchAuthors()
   }, [fetchQuotes, fetchAuthors])
 
+  const handleAuthorSearch = (authorName: string): void => {
+    const tag = tagByAuthorName.get(authorName) || DEFAULT_AUTHOR_TAG
+    navigate(`/authors/${tag}`)
+  }
   return (
     <>
       <Typography
@@ -49,6 +57,19 @@ const Quotes = (): JSX.Element => {
       >
         Your 5 Quotes of the Day
       </Typography>
+      <Box
+        alignItems="center"
+        display="flex"
+        gap="36px"
+        justifyContent="center"
+        marginBottom="40px"
+      >
+        <SearchBar
+          label="Search by author"
+          onSearch={handleAuthorSearch}
+          options={Array.from(tagByAuthorName, ([name]) => name)}
+        />
+      </Box>
       <Box
         alignItems="center"
         display="flex"
