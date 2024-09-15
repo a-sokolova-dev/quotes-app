@@ -10,7 +10,7 @@ export type QuoteCardProps = {
 export const QuoteCard = ({ quote }: QuoteCardProps): JSX.Element => {
   const { a, i, q, t } = quote
   return (
-    <Card sx={{ borderRadius: '10px' }} variant="outlined">
+    <Card sx={{ borderRadius: '10px', minWidth: '100%' }} variant="outlined">
       <CardContent
         sx={{
           backgroundColor: '#E5E7EB',
