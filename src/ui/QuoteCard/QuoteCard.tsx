@@ -1,14 +1,32 @@
 import { Avatar, Box, Card, CardContent, Link, Typography } from '@mui/material'
 import type { JSX } from 'react'
 
-import type { QuoteWithTag } from '../../types/quote.ts'
+import type { Quote, QuoteWithTag } from '../../types/quote.ts'
 
 export type QuoteCardProps = {
-  quote: QuoteWithTag
+  quote: Quote | QuoteWithTag
+}
+
+function isQuoteWithTag(quote: Quote | QuoteWithTag): quote is QuoteWithTag {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return (quote as QuoteWithTag).t !== undefined
 }
 
 export const QuoteCard = ({ quote }: QuoteCardProps): JSX.Element => {
-  const { a, i, q, t } = quote
+  const { a, i, q } = quote
+
+  const author = isQuoteWithTag(quote) ? (
+    <Link href={`/authors/${quote.t}`}>
+      <Typography fontSize="20px" fontStyle="italic">
+        {a}
+      </Typography>
+    </Link>
+  ) : (
+    <Typography fontSize="20px" fontStyle="italic">
+      {a}
+    </Typography>
+  )
+
   return (
     <Card sx={{ borderRadius: '10px', minWidth: '100%' }} variant="outlined">
       <CardContent
@@ -30,11 +48,7 @@ export const QuoteCard = ({ quote }: QuoteCardProps): JSX.Element => {
           }}
         >
           <Avatar alt={a} src={i} />
-          <Link href={`/authors/${t}`}>
-            <Typography fontSize="20px" fontStyle="italic">
-              {a}
-            </Typography>
-          </Link>
+          {author}
         </Box>
       </CardContent>
     </Card>

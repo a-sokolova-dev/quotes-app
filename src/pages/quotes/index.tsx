@@ -3,8 +3,10 @@ import { type JSX, useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { getAuthors } from '../../services/authors.ts'
+import { getKeywords } from '../../services/keywords.ts'
 import { getDailyQuotes } from '../../services/quotes.ts'
 import type { Author } from '../../types/author.ts'
+import type { Keyword } from '../../types/keyword.ts'
 import type { Quote } from '../../types/quote.ts'
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
 import { SearchBar } from '../../ui/SearchBar/SearchBar.tsx'
@@ -16,6 +18,7 @@ const Quotes = (): JSX.Element => {
 
   const [dailyQuotes, setDailyQuotes] = useState<Quote[]>([])
   const [authors, setAuthors] = useState<Author[]>([])
+  const [keywords, setKeywords] = useState<Keyword[]>([])
 
   const tagByAuthorName: Map<Author['a'], Author['t']> = useMemo(() => {
     return new Map(authors.map(author => [author.a, author.t]))
@@ -38,15 +41,27 @@ const Quotes = (): JSX.Element => {
     setAuthors(fetchedAuthors)
   }, [])
 
-  useEffect(() => {
-    fetchQuotes()
-    fetchAuthors()
-  }, [fetchQuotes, fetchAuthors])
+  const fetchKeywords = useCallback(async (): Promise<void> => {
+    const fetchedKeywords = await getKeywords()
+    setKeywords(fetchedKeywords)
+  }, [])
 
   const handleAuthorSearch = (authorName: string): void => {
     const tag = tagByAuthorName.get(authorName) || DEFAULT_AUTHOR_TAG
     navigate(`/authors/${tag}`)
   }
+
+  const handleKeywordSearch = (keyword: string): void => {
+    const tag = keyword
+    navigate(`/keywords/${tag}`)
+  }
+
+  useEffect(() => {
+    fetchQuotes()
+    fetchAuthors()
+    fetchKeywords()
+  }, [fetchQuotes, fetchAuthors])
+
   return (
     <>
       <Typography
@@ -68,6 +83,11 @@ const Quotes = (): JSX.Element => {
           label="Search by author"
           onSearch={handleAuthorSearch}
           options={Array.from(tagByAuthorName, ([name]) => name)}
+        />
+        <SearchBar
+          label="Search by keyword"
+          onSearch={handleKeywordSearch}
+          options={keywords.map(k => k.k)}
         />
       </Box>
       <Box

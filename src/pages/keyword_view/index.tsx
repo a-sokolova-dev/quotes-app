@@ -1,18 +1,26 @@
 import { Typography } from '@mui/material'
-import type { JSX } from 'react'
+import { type JSX, useCallback, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
+import { getRandomQuoteByKeyword } from '../../services/random.ts'
+import type { Quote } from '../../types/quote.ts'
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
 
-const mockKeyword = 'work'
-const mockRandomQuote = {
-  a: 'Eleanor Roosevelt',
-  c: '63',
-  h: '<blockquote>&ldquo;Work is always an antidote to depression.&rdquo; &mdash; <footer>Eleanor Roosevelt</footer></blockquote>',
-  i: 'https://zenquotes.io/img/eleanor-roosevelt.jpg',
-  q: 'Work is always an antidote to depression.'
-}
-
 const KeywordView = (): JSX.Element => {
+  const { tag } = useParams()
+  const [randomQuote, setRandomQuote] = useState<null | Quote>(null)
+
+  const fetchRandomQuote = useCallback(async (): Promise<void> => {
+    const quote = await getRandomQuoteByKeyword(tag)
+    setRandomQuote(quote)
+  }, [])
+
+  useEffect(() => {
+    fetchRandomQuote()
+  }, [fetchRandomQuote])
+
+  if (!randomQuote) return <></>
+
   return (
     <>
       <Typography
@@ -28,10 +36,10 @@ const KeywordView = (): JSX.Element => {
           fontSize="inherit"
           fontWeight="inherit"
         >
-          {mockKeyword}
+          {tag}
         </Typography>
       </Typography>
-      <QuoteCard quote={mockRandomQuote} />
+      <QuoteCard quote={randomQuote} />
     </>
   )
 }
