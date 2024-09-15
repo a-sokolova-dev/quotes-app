@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -16,7 +17,7 @@ createRoot(document.getElementById('root')!).render(
             {ROUTES.map(({ Component, path }) => (
               <Route
                 element={
-                  <Suspense fallback={<></>}>
+                  <Suspense fallback={<CircularProgress />}>
                     <Component />
                   </Suspense>
                 }
