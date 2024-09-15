@@ -1,5 +1,4 @@
-import type { Quote, QuoteWithTag } from '../types/quote'
-import { createAuthorMap, fetchAuthors, getAuthorTag } from './authors.ts'
+import type { Quote } from '../types/quote'
 
 const API_KEY = import.meta.env.VITE_API_KEY
 const QUOTE_API_URL = `https://zenquotes.io/api/quotes/${API_KEY}`
@@ -7,26 +6,22 @@ const STORAGE_KEY = 'dailyQuotes'
 
 interface StoredQuotesData {
   fetchedAt: string
-  quotes: QuoteWithTag[]
+  quotes: Quote[]
 }
 
-export async function getDailyQuotes(count: number): Promise<QuoteWithTag[]> {
+export async function getDailyQuotes(count: number): Promise<Quote[]> {
   let stored = getStoredQuotes()
   if (stored && !isStoredDateOutdated(stored.fetchedAt)) {
     return stored.quotes
   }
 
   let fetchedQuotes = await fetchQuotes()
-  let fetchedAuthors = await fetchAuthors()
-  if (!fetchedQuotes || !fetchedAuthors) return stored ? stored.quotes : []
+  if (!fetchedQuotes) return stored ? stored.quotes : []
 
-  createAuthorMap(fetchedAuthors)
   let selectedQuotes = selectQuotes(fetchedQuotes, count)
-  let selectedQuotesWithTags = addAuthorTags(selectedQuotes)
+  storeQuotes(selectedQuotes)
 
-  storeQuotes(selectedQuotesWithTags)
-
-  return selectedQuotesWithTags
+  return selectedQuotes
 }
 
 export function getStoredQuotes(): null | StoredQuotesData {
@@ -53,13 +48,6 @@ export async function fetchQuotes(): Promise<null | Quote[]> {
     console.error('Error fetching quotes:', error)
     return null
   }
-}
-
-function addAuthorTags(quotes: Quote[]): QuoteWithTag[] {
-  return quotes.map(quote => ({
-    ...quote,
-    t: getAuthorTag(quote.a)
-  }))
 }
 
 export function selectQuotes(quotes: Quote[], count: number): Quote[] {

@@ -3,7 +3,10 @@ import type { Author } from '../types/author'
 const API_KEY = import.meta.env.VITE_API_KEY
 const AUTHORS_API_URL = `https://zenquotes.io/api/authors/${API_KEY}`
 
-const authorMap: Map<string, string> = new Map()
+export async function getAuthors(): Promise<Author[]> {
+  let fetchedAuthors = await fetchAuthors()
+  return fetchedAuthors ?? []
+}
 
 export async function fetchAuthors(): Promise<Author[] | null> {
   try {
@@ -17,15 +20,4 @@ export async function fetchAuthors(): Promise<Author[] | null> {
     console.error('Error fetching authors:', error)
     return null
   }
-}
-
-export function createAuthorMap(authors: Author[]): void {
-  authorMap.clear()
-  authors.forEach(author => {
-    authorMap.set(author.a.toLowerCase(), author.t)
-  })
-}
-
-export function getAuthorTag(authorName: string): string {
-  return authorMap.get(authorName.toLowerCase()) || 'unknown-tag'
 }
