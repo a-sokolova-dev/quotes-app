@@ -1,12 +1,21 @@
 import { render, screen } from '@testing-library/react'
 
+import { navigation } from '../../routes'
 import { QuoteCard } from './QuoteCard'
+
+vi.mock('react-router-dom', () => ({
+  Link: ({ children, to }) => <a href={to}>{children}</a>
+}))
+
+vi.mock('../../routes', () => ({
+  navigation: {
+    author: vi.fn()
+  }
+}))
 
 describe('QuoteCard', () => {
   const mockBaseQuote = {
     a: 'Test Author',
-    c: '21',
-    h: '<blockquote>&ldquo;This is a test quote.&rdquo; &mdash; <footer>Test Author</footer></blockquote>',
     i: 'https://zenquotes.io/img/test-author.jpg',
     q: 'This is a test quote.'
   }
@@ -30,11 +39,15 @@ describe('QuoteCard', () => {
 
   it('renders author as a link when quote has a tag', () => {
     const quoteWithTag = { ...mockBaseQuote, t: 'test-author' }
+    const mockNavigationAuthor = vi.mocked(navigation.author)
+    mockNavigationAuthor.mockReturnValue('/authors/test-author')
+
     render(<QuoteCard quote={quoteWithTag} />)
 
     const authorLink = screen.getByRole('link', { name: 'Test Author' })
     expect(authorLink).toBeInTheDocument()
-    expect(authorLink).toHaveAttribute('href', '#/authors/test-author')
+    expect(mockNavigationAuthor).toHaveBeenCalledWith('test-author')
+    expect(authorLink).toHaveAttribute('href', '/authors/test-author')
   })
 
   it('renders author as plain text when quote has no tag', () => {

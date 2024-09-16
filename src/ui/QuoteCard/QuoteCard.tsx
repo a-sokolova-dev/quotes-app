@@ -1,6 +1,8 @@
 import { Avatar, Box, Card, CardContent, Link, Typography } from '@mui/material'
 import type { JSX } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 
+import { navigation } from '../../routes.ts'
 import type { Quote, QuoteWithTag } from '../../types/quote.ts'
 
 export type QuoteCardProps = {
@@ -16,7 +18,7 @@ export const QuoteCard = ({ quote }: QuoteCardProps): JSX.Element => {
   const { a, i, q } = quote
 
   const author = isQuoteWithTag(quote) ? (
-    <Link href={`#/authors/${quote.t}`}>
+    <Link component={RouterLink} to={navigation.author(quote.t)}>
       <Typography fontSize="20px" fontStyle="italic">
         {a}
       </Typography>

@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material'
 import { type JSX, useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { navigation } from '../../routes.ts'
 import { getAuthors } from '../../services/authors.ts'
 import { getKeywords } from '../../services/keywords.ts'
 import { getDailyQuotes } from '../../services/quotes.ts'
@@ -48,12 +49,12 @@ const Quotes = (): JSX.Element => {
 
   const handleAuthorSearch = (authorName: string): void => {
     const tag = tagByAuthorName.get(authorName) || DEFAULT_AUTHOR_TAG
-    navigate(`/authors/${tag}`)
+    navigate(navigation.author(tag))
   }
 
   const handleKeywordSearch = (keyword: string): void => {
     const tag = keyword
-    navigate(`/keywords/${tag}`)
+    navigate(navigation.keyword(tag))
   }
 
   useEffect(() => {
