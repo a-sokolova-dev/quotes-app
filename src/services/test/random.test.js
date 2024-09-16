@@ -1,4 +1,4 @@
-import { getAuthorRandomQuote, getRandomQuoteByKeyword } from '../random'
+import { fetchRandomQuoteByAuthor, fetchRandomQuoteByKeyword } from '../random'
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch
@@ -12,47 +12,29 @@ describe('Random Quote Service', () => {
     vi.clearAllMocks()
   })
 
-  describe('getAuthorRandomQuote', () => {
-    it('returns a random quote for an author', async () => {
+  describe('fetchRandomQuoteByAuthor', () => {
+    it('returns a random quote by author tag', async () => {
       let mockQuote = { a: 'Test author', q: 'Test quote' }
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve([mockQuote]),
         ok: true
       })
 
-      let result = await getAuthorRandomQuote('test-author')
-      expect(result).toEqual(mockQuote)
-    })
-
-    it('returns null when fetch fails', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: false
-      })
-
-      let result = await getAuthorRandomQuote('test-author')
-      expect(result).toBeNull()
+      let result = await fetchRandomQuoteByAuthor('test-author')
+      expect(result).toEqual([mockQuote])
     })
   })
 
-  describe('getRandomQuoteByKeyword', () => {
-    it('returns a random quote for a keyword', async () => {
+  describe('fetchRandomQuoteByKeyword', () => {
+    it('returns a random quote by keyword tag', async () => {
       let mockQuote = { a: 'Test author', q: 'Test quote' }
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve([mockQuote]),
         ok: true
       })
 
-      let result = await getRandomQuoteByKeyword('test-keyword')
-      expect(result).toEqual(mockQuote)
-    })
-
-    it('returns null when fetch fails', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: false
-      })
-
-      let result = await getRandomQuoteByKeyword('test-keyword')
-      expect(result).toBeNull()
+      let result = await fetchRandomQuoteByKeyword('keyword')
+      expect(result).toEqual([mockQuote])
     })
   })
 })

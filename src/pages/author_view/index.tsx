@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import { type JSX, useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { getAuthorRandomQuote } from '../../services/random.ts'
+import { fetchRandomQuoteByAuthor } from '../../services/random.ts'
 import type { Quote } from '../../types/quote.ts'
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
 
@@ -11,7 +11,8 @@ const AuthorView = (): JSX.Element => {
   const [randomQuote, setRandomQuote] = useState<null | Quote>(null)
 
   const fetchRandomQuote = useCallback(async (): Promise<void> => {
-    const quote = await getAuthorRandomQuote(tag)
+    if (!tag) return
+    const [quote] = await fetchRandomQuoteByAuthor(tag)
     setRandomQuote(quote)
   }, [])
 
