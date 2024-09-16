@@ -3,9 +3,17 @@ import { render, screen } from '@testing-library/react'
 import { navigation } from '../../routes'
 import { QuoteCard } from './QuoteCard'
 
-vi.mock('react-router-dom', () => ({
-  Link: ({ children, to }) => <a href={to}>{children}</a>
-}))
+vi.mock('@mui/material', async importOriginal => {
+  const mod = await importOriginal()
+  return {
+    ...mod,
+    Link: ({ children, to }) => (
+      <div>
+        <a href={to}>{children}</a>
+      </div>
+    )
+  }
+})
 
 vi.mock('../../routes', () => ({
   navigation: {
