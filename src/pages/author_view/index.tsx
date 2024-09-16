@@ -22,15 +22,10 @@ const AuthorView = (): JSX.Element => {
   if (!randomQuote) return <></>
   return (
     <>
-      <Typography
-        fontSize="40px"
-        fontWeight="bold"
-        marginBottom="64px"
-        variant="h1"
-      >
+      <Typography variant="h1">
         Author:{' '}
         <Typography
-          color="#34D399"
+          color="secondary"
           display="inline"
           fontSize="inherit"
           fontWeight="inherit"

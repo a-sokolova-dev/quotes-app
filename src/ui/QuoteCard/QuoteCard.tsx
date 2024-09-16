@@ -19,14 +19,10 @@ export const QuoteCard = ({ quote }: QuoteCardProps): JSX.Element => {
 
   const author = isQuoteWithTag(quote) ? (
     <Link component={RouterLink} to={navigation.author(quote.t)}>
-      <Typography fontSize="20px" fontStyle="italic">
-        {a}
-      </Typography>
+      <Typography fontStyle="italic">{a}</Typography>
     </Link>
   ) : (
-    <Typography fontSize="20px" fontStyle="italic">
-      {a}
-    </Typography>
+    <Typography fontStyle="italic">{a}</Typography>
   )
 
   return (
@@ -38,9 +34,7 @@ export const QuoteCard = ({ quote }: QuoteCardProps): JSX.Element => {
           textAlign: 'center'
         }}
       >
-        <Typography fontSize="36px" marginBottom="30px" variant="h2">
-          {q}
-        </Typography>
+        <Typography variant="h2">{q}</Typography>
         <Box
           sx={{
             alignItems: 'center',

@@ -23,15 +23,10 @@ const KeywordView = (): JSX.Element => {
 
   return (
     <>
-      <Typography
-        fontSize="40px"
-        fontWeight="bold"
-        marginBottom="64px"
-        variant="h1"
-      >
+      <Typography variant="h1">
         Keyword:{' '}
         <Typography
-          color="#34D399"
+          color="secondary"
           display="inline"
           fontSize="inherit"
           fontWeight="inherit"

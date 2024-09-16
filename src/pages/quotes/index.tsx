@@ -65,14 +65,7 @@ const Quotes = (): JSX.Element => {
 
   return (
     <>
-      <Typography
-        fontSize="40px"
-        fontWeight="bold"
-        marginBottom="64px"
-        variant="h1"
-      >
-        Your 5 Quotes of the Day
-      </Typography>
+      <Typography variant="h1">Your 5 Quotes of the Day</Typography>
       <Box
         alignItems="center"
         display="flex"
