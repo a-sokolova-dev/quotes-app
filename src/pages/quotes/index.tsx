@@ -3,7 +3,7 @@ import { type JSX, useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { navigation } from '../../routes.ts'
-import { getAuthors } from '../../services/authors.ts'
+import { fetchAuthors } from '../../services/authors.ts'
 import { fetchKeywords } from '../../services/keywords.ts'
 import { getDailyQuotes } from '../../services/quotes.ts'
 import type { Author } from '../../types/author.ts'
@@ -37,8 +37,8 @@ const Quotes = (): JSX.Element => {
     setDailyQuotes(quotes)
   }, [])
 
-  const fetchAuthors = useCallback(async (): Promise<void> => {
-    const fetchedAuthors = await getAuthors()
+  const loadAuthors = useCallback(async (): Promise<void> => {
+    const fetchedAuthors = await fetchAuthors()
     setAuthors(fetchedAuthors)
   }, [])
 
@@ -59,7 +59,7 @@ const Quotes = (): JSX.Element => {
 
   useEffect(() => {
     fetchQuotes()
-    fetchAuthors()
+    loadAuthors()
     loadKeywords()
   }, [fetchQuotes, fetchAuthors])
 
