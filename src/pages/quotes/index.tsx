@@ -3,7 +3,11 @@ import { type JSX, useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { navigation } from '../../routes.ts'
-import { fetchAuthors } from '../../services/authors.ts'
+import {
+  fetchAuthors,
+  getAuthorTag,
+  getTagByName
+} from '../../services/authors.ts'
 import { fetchKeywords } from '../../services/keywords.ts'
 import { getDailyQuotes } from '../../services/quotes.ts'
 import type { Author } from '../../types/author.ts'
@@ -12,8 +16,6 @@ import type { Quote } from '../../types/quote.ts'
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
 import { SearchBar } from '../../ui/SearchBar/SearchBar.tsx'
 
-const DEFAULT_AUTHOR_TAG = 'unknown'
-
 const Quotes = (): JSX.Element => {
   const navigate = useNavigate()
 
@@ -21,16 +23,11 @@ const Quotes = (): JSX.Element => {
   const [authors, setAuthors] = useState<Author[]>([])
   const [keywords, setKeywords] = useState<Keyword[]>([])
 
-  const tagByAuthorName: Map<Author['a'], Author['t']> = useMemo(() => {
-    return new Map(authors.map(author => [author.a, author.t]))
-  }, [authors])
-
-  const quotesWithAuthorTags = useMemo(() => {
-    return dailyQuotes.map(quote => ({
-      ...quote,
-      t: tagByAuthorName.get(quote.a) || DEFAULT_AUTHOR_TAG
-    }))
-  }, [dailyQuotes, authors])
+  const tagByName = useMemo(() => getTagByName(authors), [authors])
+  const quotesWithAuthorTags = useMemo(
+    () => dailyQuotes.map(q => ({ ...q, t: getAuthorTag(q.a, tagByName) })),
+    [dailyQuotes, tagByName]
+  )
 
   const fetchQuotes = useCallback(async (): Promise<void> => {
     const quotes = await getDailyQuotes(5)
@@ -47,8 +44,8 @@ const Quotes = (): JSX.Element => {
     setKeywords(fetchedKeywords)
   }, [])
 
-  const handleAuthorSearch = (authorName: string): void => {
-    const tag = tagByAuthorName.get(authorName) || DEFAULT_AUTHOR_TAG
+  const handleAuthorSearch = (author: string): void => {
+    const tag = getAuthorTag(author, tagByName)
     navigate(navigation.author(tag))
   }
 
@@ -76,7 +73,7 @@ const Quotes = (): JSX.Element => {
         <SearchBar
           label="Search by author"
           onSearch={handleAuthorSearch}
-          options={Array.from(tagByAuthorName, ([name]) => name)}
+          options={Array.from(tagByName, ([name]) => name)}
         />
         <SearchBar
           label="Search by keyword"

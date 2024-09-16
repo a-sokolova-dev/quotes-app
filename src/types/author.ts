@@ -4,3 +4,5 @@ export interface Author {
   l: string
   t: string
 }
+
+export type AuthorTagMap = Map<Author['a'], Author['t']>
