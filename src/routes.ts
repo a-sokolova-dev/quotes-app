@@ -4,7 +4,7 @@ import type React from 'react'
 enum UI_ROUTES_ENUM {
   AUTHORS_WITH_TAG = '/authors/:tag',
   KEYWORDS_WITH_TAG = '/keywords/:tag',
-  QUOTES = '/quotes'
+  QUOTES = '/'
 }
 
 type RouteItem<T> = {
