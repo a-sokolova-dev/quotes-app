@@ -34,7 +34,7 @@ describe('QuoteCard', () => {
 
     const authorLink = screen.getByRole('link', { name: 'Test Author' })
     expect(authorLink).toBeInTheDocument()
-    expect(authorLink).toHaveAttribute('href', 'authors/test-author')
+    expect(authorLink).toHaveAttribute('href', '#/authors/test-author')
   })
 
   it('renders author as plain text when quote has no tag', () => {

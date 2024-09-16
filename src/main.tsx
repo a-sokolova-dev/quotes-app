@@ -2,17 +2,15 @@ import { CircularProgress } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 
 import { ROUTES } from './routes.ts'
 import { THEME } from './theme.ts'
 import { Layout } from './ui/Layout/Layout.tsx'
 
-const ROUTER_BASE_URL = import.meta.env.BASE_URL
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename={ROUTER_BASE_URL}>
+    <HashRouter>
       <ThemeProvider theme={THEME}>
         <Layout>
           <Routes>
@@ -30,6 +28,6 @@ createRoot(document.getElementById('root')!).render(
           </Routes>
         </Layout>
       </ThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   </StrictMode>
 )

@@ -16,7 +16,7 @@ export const QuoteCard = ({ quote }: QuoteCardProps): JSX.Element => {
   const { a, i, q } = quote
 
   const author = isQuoteWithTag(quote) ? (
-    <Link href={`authors/${quote.t}`}>
+    <Link href={`#/authors/${quote.t}`}>
       <Typography fontSize="20px" fontStyle="italic">
         {a}
       </Typography>
