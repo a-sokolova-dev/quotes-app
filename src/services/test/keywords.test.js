@@ -1,4 +1,4 @@
-import { fetchKeywords, getKeywords } from '../keywords'
+import { fetchKeywords } from '../keywords'
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch
@@ -12,34 +12,16 @@ describe('Keywords Service', () => {
     vi.clearAllMocks()
   })
 
-  describe('getKeywords', () => {
-    it('returns fetched keywords when available', async () => {
+  describe('fetchKeywords', () => {
+    it('returns fetched keywords', async () => {
       let mockKeywords = [{ k: 'anxiety' }, { k: 'work' }]
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockKeywords),
         ok: true
       })
 
-      let result = await getKeywords()
-      expect(result).toEqual(mockKeywords)
-    })
-
-    it('returns an empty array when fetching fails', async () => {
-      mockFetch.mockRejectedValueOnce(new Error('Network error'))
-
-      let result = await getKeywords()
-      expect(result).toEqual([])
-    })
-  })
-
-  describe('fetchKeywords', () => {
-    it('returns null when fetch fails', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: false
-      })
-
       let result = await fetchKeywords()
-      expect(result).toBeNull()
+      expect(result).toEqual(mockKeywords)
     })
   })
 })

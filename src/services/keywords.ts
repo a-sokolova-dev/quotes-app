@@ -1,23 +1,13 @@
+/* eslint-disable no-console */
 import type { Keyword } from '../types/keyword'
 
 const API_KEY = import.meta.env.VITE_API_KEY
-const KEYWORDS_API_URL = `https://zenquotes.io/api/keywords/${API_KEY}`
+const KEYWORDS_API_URL = `https://zenquotes.io/api/keywords`
 
-export async function getKeywords(): Promise<Keyword[]> {
-  let fetchedAuthors = await fetchKeywords()
-  return fetchedAuthors ?? []
-}
+export async function fetchKeywords(): Promise<Keyword[]> {
+  let url = `${KEYWORDS_API_URL}/${API_KEY}`
 
-export async function fetchKeywords(): Promise<Keyword[] | null> {
-  try {
-    let response = await fetch(KEYWORDS_API_URL)
-    if (!response.ok) {
-      throw new Error('Failed to fetch authors')
-    }
-    return await response.json()
-  } catch (error) {
-    /* eslint-disable no-console */
-    console.error('Error fetching authors:', error)
-    return null
-  }
+  return fetch(url)
+    .then(r => r.json())
+    .catch(console.error)
 }

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { navigation } from '../../routes.ts'
 import { getAuthors } from '../../services/authors.ts'
-import { getKeywords } from '../../services/keywords.ts'
+import { fetchKeywords } from '../../services/keywords.ts'
 import { getDailyQuotes } from '../../services/quotes.ts'
 import type { Author } from '../../types/author.ts'
 import type { Keyword } from '../../types/keyword.ts'
@@ -42,8 +42,8 @@ const Quotes = (): JSX.Element => {
     setAuthors(fetchedAuthors)
   }, [])
 
-  const fetchKeywords = useCallback(async (): Promise<void> => {
-    const fetchedKeywords = await getKeywords()
+  const loadKeywords = useCallback(async (): Promise<void> => {
+    const fetchedKeywords = await fetchKeywords()
     setKeywords(fetchedKeywords)
   }, [])
 
@@ -60,7 +60,7 @@ const Quotes = (): JSX.Element => {
   useEffect(() => {
     fetchQuotes()
     fetchAuthors()
-    fetchKeywords()
+    loadKeywords()
   }, [fetchQuotes, fetchAuthors])
 
   return (
