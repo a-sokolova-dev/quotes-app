@@ -8,9 +8,11 @@ import { ROUTES } from './routes.ts'
 import { THEME } from './theme.ts'
 import { Layout } from './ui/Layout/Layout.tsx'
 
+const ROUTER_BASE_URL = import.meta.env.BASE_URL
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={ROUTER_BASE_URL}>
       <ThemeProvider theme={THEME}>
         <Layout>
           <Routes>

@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/quotes-app/',
   plugins: [react()],
   test: {
     environment: 'jsdom',
