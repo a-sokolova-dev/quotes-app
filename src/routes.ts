@@ -29,7 +29,7 @@ export const ROUTES: RouteItem[] = [
 
 export const navigation = {
   author: (tag: string) => navigateWithTag(UI_ROUTES_ENUM.AUTHORS, tag),
-  keyword: (tag: string) => navigateWithTag(UI_ROUTES_ENUM.AUTHORS, tag)
+  keyword: (tag: string) => navigateWithTag(UI_ROUTES_ENUM.KEYWORDS, tag)
 }
 
 function navigateWithTag(path: UI_ROUTES_ENUM, tag: string): string {

@@ -6,6 +6,6 @@ describe('navigation', () => {
   })
 
   it('should return correct path for keyword', () => {
-    expect(navigation.keyword('test')).toBe('/authors/test')
+    expect(navigation.keyword('test')).toBe('/keywords/test')
   })
 })
