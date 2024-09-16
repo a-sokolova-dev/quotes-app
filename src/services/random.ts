@@ -13,9 +13,7 @@ export async function getAuthorRandomQuote(
   return quote
 }
 
-async function fetchRandomQuoteByAuthor(
-  tag: string
-): Promise<null | Quote[]> {
+async function fetchRandomQuoteByAuthor(tag: string): Promise<null | Quote[]> {
   try {
     let response = await fetch(
       `${RANDOM_QUOTE_API_URL}/author/${tag}/${API_KEY}`
@@ -42,9 +40,7 @@ export async function getRandomQuoteByKeyword(
   return quote
 }
 
-async function fetchRandomQuoteByKeyword(
-  tag: string
-): Promise<null | Quote[]> {
+async function fetchRandomQuoteByKeyword(tag: string): Promise<null | Quote[]> {
   try {
     let response = await fetch(
       `${RANDOM_QUOTE_API_URL}/${API_KEY}&keyword=${tag}`

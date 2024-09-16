@@ -7,5 +7,5 @@ export interface Quote {
 }
 
 export interface QuoteWithTag extends Quote {
-    t: string
+  t: string
 }

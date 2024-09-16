@@ -1,7 +1,4 @@
-import {
-  getAuthorRandomQuote,
-  getRandomQuoteByKeyword
-} from '../random'
+import { getAuthorRandomQuote, getRandomQuoteByKeyword } from '../random'
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch

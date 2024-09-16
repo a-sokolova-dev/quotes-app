@@ -21,7 +21,10 @@ describe('QuoteCard', () => {
     render(<QuoteCard quote={mockBaseQuote} />)
     const avatar = screen.getByAltText('Test Author')
     expect(avatar).toBeInTheDocument()
-    expect(avatar).toHaveAttribute('src', 'https://zenquotes.io/img/test-author.jpg')
+    expect(avatar).toHaveAttribute(
+      'src',
+      'https://zenquotes.io/img/test-author.jpg'
+    )
     expect(avatar).toHaveAttribute('alt', 'Test Author')
   })
 
