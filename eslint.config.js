@@ -3,15 +3,15 @@ import customTsConfig from 'eslint-config/ts'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  { ignores: ['dist/', 'vite.config.ts'] },
+  ...customTsConfig,
   {
-    ignores: ['/dist/', 'vite.config.ts'],
     languageOptions: {
       globals: {
         ...vitest.environments.env.globals
       }
     }
   },
-  ...customTsConfig,
   {
     files: ['**/*.{jsx,tsx}'],
     rules: {
