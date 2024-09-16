@@ -20,8 +20,7 @@ const KeywordView = (): JSX.Element => {
     fetchRandomQuote()
   }, [fetchRandomQuote])
 
-  if (!randomQuote) return <></>
-
+  const card = randomQuote ? <QuoteCard quote={randomQuote} /> : <></>
   return (
     <>
       <Typography variant="h1">
@@ -35,7 +34,7 @@ const KeywordView = (): JSX.Element => {
           {tag}
         </Typography>
       </Typography>
-      <QuoteCard quote={randomQuote} />
+      {card}
     </>
   )
 }
