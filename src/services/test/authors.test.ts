@@ -37,8 +37,8 @@ describe('Authors Service', () => {
   describe('getTagByName', () => {
     it('creates a map of author names to tags', () => {
       let authors = [
-        { a: 'Author One', t: 'author-one' },
-        { a: 'Author Two', t: 'author-two' }
+        { a: 'Author One', i: 'one.jpg', l: '/author-one/', t: 'author-one' },
+        { a: 'Author Two', i: 'two.jpg', l: '/author-two/', t: 'author-two' }
       ]
 
       let tagByName = getTagByName(authors)
@@ -51,11 +51,7 @@ describe('Authors Service', () => {
   })
 
   describe('getAuthorTag', () => {
-    let tagByName
-
-    beforeEach(() => {
-      tagByName = new Map([['Author One', 'author-one']])
-    })
+    let tagByName = new Map([['Author One', 'author-one']])
 
     it('returns the correct tag for an existing author', () => {
       let result = getAuthorTag('Author One', tagByName)

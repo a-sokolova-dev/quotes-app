@@ -1,4 +1,4 @@
-import { fetchRandomByAuthor, fetchRandomByKeyword } from '../random'
+import { fetchRandomByAuthor, fetchRandomByKeyword } from '../random.ts'
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch

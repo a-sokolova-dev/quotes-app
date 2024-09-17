@@ -1,4 +1,4 @@
-import { getDailyQuotes } from '../quotes'
+import { getDailyQuotes } from '../quotes.ts'
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch
@@ -6,6 +6,9 @@ global.fetch = mockFetch
 const localStorageMock = {
   clear: vi.fn(),
   getItem: vi.fn(),
+  key: () => '',
+  length: 0,
+  removeItem: vi.fn(),
   setItem: vi.fn()
 }
 

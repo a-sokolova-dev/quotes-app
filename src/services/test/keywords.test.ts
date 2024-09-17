@@ -1,4 +1,4 @@
-import { fetchKeywords } from '../keywords'
+import { fetchKeywords } from '../keywords.ts'
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch
