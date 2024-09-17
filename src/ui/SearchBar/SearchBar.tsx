@@ -40,7 +40,7 @@ export const SearchBar = ({
         value={value}
       />
       <IconButton
-        aria-label="search"
+        aria-label={`${label} button`}
         color="primary"
         onClick={handleSubmit}
         size="large"
