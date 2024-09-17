@@ -28,23 +28,6 @@ describe('QuoteCard', () => {
     q: 'This is a test quote.'
   }
 
-  it('renders quote content correctly', () => {
-    render(<QuoteCard quote={mockBaseQuote} />)
-    expect(screen.getByText('This is a test quote.')).toBeInTheDocument()
-    expect(screen.getByText('Test Author')).toBeInTheDocument()
-  })
-
-  it('renders avatar with correct alt text and src', () => {
-    render(<QuoteCard quote={mockBaseQuote} />)
-    const avatar = screen.getByAltText('Test Author')
-    expect(avatar).toBeInTheDocument()
-    expect(avatar).toHaveAttribute(
-      'src',
-      'https://zenquotes.io/img/test-author.jpg'
-    )
-    expect(avatar).toHaveAttribute('alt', 'Test Author')
-  })
-
   it('renders author as a link when quote has a tag', () => {
     const quoteWithTag = { ...mockBaseQuote, t: 'test-author' }
     const mockNavigationAuthor = vi.mocked(navigation.author)

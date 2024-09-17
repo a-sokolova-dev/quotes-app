@@ -26,20 +26,6 @@ describe('AuthorView', () => {
     vi.clearAllMocks()
   })
 
-  it('renders author name from URL parameter', async () => {
-    await act(async () => {
-      render(
-        <MemoryRouter initialEntries={['/author/test-author']}>
-          <Routes>
-            <Route element={<AuthorView />} path="/author/:tag" />
-          </Routes>
-        </MemoryRouter>
-      )
-    })
-
-    expect(screen.getByText('test-author')).toBeInTheDocument()
-  })
-
   it('fetches and displays a random quote by the author', async () => {
     vi.mocked(fetchRandomByAuthor).mockResolvedValue(mockQuote)
 

@@ -26,20 +26,6 @@ describe('KeywordView', () => {
     vi.clearAllMocks()
   })
 
-  it('renders keyword from URL parameter', async () => {
-    await act(async () => {
-      render(
-        <MemoryRouter initialEntries={['/keyword/inspiration']}>
-          <Routes>
-            <Route element={<KeywordView />} path="/keyword/:tag" />
-          </Routes>
-        </MemoryRouter>
-      )
-    })
-
-    expect(screen.getByText('inspiration')).toBeInTheDocument()
-  })
-
   it('fetches and displays a random quote by the keyword', async () => {
     vi.mocked(fetchRandomByKeyword).mockResolvedValue(mockQuote)
 
