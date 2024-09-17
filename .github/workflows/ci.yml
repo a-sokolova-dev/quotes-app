@@ -43,6 +43,8 @@ jobs:
         run: pnpm install
       - name: Run the tests
         run: pnpm test
+        env:
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
       - name: Build
         run: pnpm build
         env:
