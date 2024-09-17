@@ -9,5 +9,8 @@ export async function fetchKeywords(): Promise<Keyword[]> {
 
   return fetch(url)
     .then(r => r.json())
-    .catch(console.error)
+    .catch(e => {
+      console.error(e)
+      return []
+    })
 }

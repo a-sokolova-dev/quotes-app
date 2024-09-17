@@ -9,7 +9,10 @@ export async function fetchAuthors(): Promise<Author[]> {
 
   return fetch(url)
     .then(r => r.json())
-    .catch(console.error)
+    .catch(e => {
+      console.error(e)
+      return []
+    })
 }
 
 export function getTagByName(authors: Author[]): AuthorTagMap {

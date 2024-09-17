@@ -23,6 +23,15 @@ describe('Authors Service', () => {
       let result = await fetchAuthors()
       expect(result).toEqual(mockAuthors)
     })
+
+    it('returns empty array if fetch fails', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false
+      })
+
+      let result = await fetchAuthors()
+      expect(result).toEqual([])
+    })
   })
 
   describe('getTagByName', () => {

@@ -23,5 +23,14 @@ describe('Keywords Service', () => {
       let result = await fetchKeywords()
       expect(result).toEqual(mockKeywords)
     })
+
+    it('returns empty array if fetch fails', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false
+      })
+
+      let result = await fetchKeywords()
+      expect(result).toEqual([])
+    })
   })
 })
