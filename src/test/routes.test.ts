@@ -1,4 +1,4 @@
-import { navigation } from '../routes'
+import { navigation } from '../routes.ts'
 
 describe('navigation', () => {
   it('should return correct path for author', () => {

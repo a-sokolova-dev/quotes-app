@@ -8,10 +8,10 @@
     "start": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "format": "prettier -w src/**/*.{js,ts,jsx,tsx} *.{js,ts,json,md}",
+    "format": "prettier -w src/**/*.{ts,tsx} *.{js,ts,json,md}",
     "test:js": "eslint .",
     "test:unit": "vitest",
-    "test:format": "prettier --check src/**/*.{js,ts,jsx,tsx} *.{js,ts,json,md}"
+    "test:format": "prettier --check src/**/*.{ts,tsx} *.{js,ts,json,md}"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

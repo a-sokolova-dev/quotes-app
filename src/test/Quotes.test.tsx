@@ -3,12 +3,12 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 
 import Quotes from '../pages/quotes/index.tsx'
-import { navigation } from '../routes'
-import { fetchAuthors, getAuthorTag, getTagByName } from '../services/authors'
-import { fetchKeywords } from '../services/keywords'
-import { getDailyQuotes } from '../services/quotes'
+import { navigation } from '../routes.ts'
+import { fetchAuthors, getAuthorTag } from '../services/authors.ts'
+import { fetchKeywords } from '../services/keywords.ts'
+import { getDailyQuotes } from '../services/quotes.ts'
 
-vi.mock(import('../services/authors'), async importOriginal => {
+vi.mock(import('../services/authors.ts'), async importOriginal => {
   const og = await importOriginal()
   return {
     ...og,
@@ -18,7 +18,7 @@ vi.mock(import('../services/authors'), async importOriginal => {
   }
 })
 
-vi.mock(import('../services/keywords'), async importOriginal => {
+vi.mock(import('../services/keywords.ts'), async importOriginal => {
   const og = await importOriginal()
   return {
     ...og,
@@ -26,11 +26,11 @@ vi.mock(import('../services/keywords'), async importOriginal => {
   }
 })
 
-vi.mock('../services/quotes', () => ({
+vi.mock('../services/quotes.ts', () => ({
   getDailyQuotes: vi.fn()
 }))
 
-vi.mock('../routes', async importOriginal => {
+vi.mock(import('../routes.ts'), async importOriginal => {
   const og = await importOriginal()
   return {
     ...og,
@@ -48,8 +48,8 @@ describe('Quotes Component', () => {
 
   it('renders the component with quotes and search bars', async () => {
     const mockQuotes = [
-      { a: 'Author 1', q: 'Quote 1', t: 'author-1' },
-      { a: 'Author 2', q: 'Quote 2', t: 'author-2' }
+      { a: 'Author 1', c: '0', h: '', i: '', q: 'Quote 1', t: 'author-1' },
+      { a: 'Author 2', c: '0', h: '', i: '', q: 'Quote 2', t: 'author-2' }
     ]
 
     vi.mocked(getDailyQuotes).mockResolvedValue(mockQuotes)
@@ -70,9 +70,12 @@ describe('Quotes Component', () => {
   })
 
   it('handles author search', async () => {
-    const mockAuthors = [{ a: 'Author 1' }, { a: 'Author 2' }]
+    const mockAuthors = [
+      { a: 'Author 1', i: 'one.jpg', l: '/author-one/', t: 'tag-1' },
+      { a: 'Author 2', i: 'two.jpg', l: '/author-two/', t: 'tag-2' }
+    ]
     vi.mocked(fetchAuthors).mockResolvedValue(mockAuthors)
-    vi.mocked(getTagByName).mockReturnValue(new Map([['Author 1', 'tag-1']]))
+    // vi.mocked(getTagByName).mockReturnValue(new Map([['Author 1', 'tag-1']]))
     vi.mocked(getAuthorTag).mockReturnValue('tag-1')
 
     render(
@@ -94,7 +97,10 @@ describe('Quotes Component', () => {
   })
 
   it('handles keyword search', async () => {
-    const mockKeywords = [{ k: 'keyword1' }, { k: 'keyword2' }]
+    const mockKeywords = [
+      { k: 'keyword1', l: '' },
+      { k: 'keyword2', l: '' }
+    ]
     vi.mocked(fetchKeywords).mockResolvedValue(mockKeywords)
 
     render(

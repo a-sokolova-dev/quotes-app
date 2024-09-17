@@ -2,9 +2,9 @@ import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
 import AuthorView from '../pages/author_view/index.tsx'
-import { fetchRandomByAuthor } from '../services/random'
+import { fetchRandomByAuthor } from '../services/random.ts'
 
-vi.mock(import('../services/random'), async importOriginal => {
+vi.mock(import('../services/random.ts'), async importOriginal => {
   const og = await importOriginal()
   return {
     ...og,
