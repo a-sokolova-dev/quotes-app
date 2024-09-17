@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { Quote } from '../types/quote'
+import type { Quote } from '../api/quote'
 
 const API_KEY = import.meta.env.VITE_API_KEY
 const RANDOM_QUOTE_API_URL = `https://zenquotes.io/api/random`

@@ -2,8 +2,8 @@ import { Typography } from '@mui/material'
 import { type JSX, useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
+import type { Quote } from '../../api/quote.ts'
 import { fetchRandomByAuthor } from '../../services/random.ts'
-import type { Quote } from '../../types/quote.ts'
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
 
 const AuthorView = (): JSX.Element => {

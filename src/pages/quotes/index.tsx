@@ -2,6 +2,9 @@ import { Box, Typography } from '@mui/material'
 import { type JSX, useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import type { Author } from '../../api/author.ts'
+import type { Keyword } from '../../api/keyword.ts'
+import type { Quote } from '../../api/quote.ts'
 import { navigation } from '../../routes.ts'
 import {
   fetchAuthors,
@@ -10,9 +13,6 @@ import {
 } from '../../services/authors.ts'
 import { fetchKeywords } from '../../services/keywords.ts'
 import { getDailyQuotes } from '../../services/quotes.ts'
-import type { Author } from '../../types/author.ts'
-import type { Keyword } from '../../types/keyword.ts'
-import type { Quote } from '../../types/quote.ts'
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
 import { SearchBar } from '../../ui/SearchBar/SearchBar.tsx'
 

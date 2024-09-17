@@ -2,8 +2,8 @@ import { Avatar, Box, Card, CardContent, Link, Typography } from '@mui/material'
 import type { JSX } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
+import type { Quote, QuoteWithTag } from '../../api/quote.ts'
 import { navigation } from '../../routes.ts'
-import type { Quote, QuoteWithTag } from '../../types/quote.ts'
 
 export type QuoteCardProps = {
   quote: Quote | QuoteWithTag

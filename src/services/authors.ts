@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { Author, AuthorTagMap } from '../types/author'
+import type { Author, AuthorTagMap } from '../api/author'
 
 const API_KEY = import.meta.env.VITE_API_KEY
 const AUTHORS_API_URL = `https://zenquotes.io/api/authors`

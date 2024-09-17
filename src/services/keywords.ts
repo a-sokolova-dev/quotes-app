@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { Keyword } from '../types/keyword'
+import type { Keyword } from '../api/keyword'
 
 const API_KEY = import.meta.env.VITE_API_KEY
 const KEYWORDS_API_URL = `https://zenquotes.io/api/keywords`
