@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import { type JSX, useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { fetchRandomQuoteByKeyword } from '../../services/random.ts'
+import { fetchRandomByKeyword } from '../../services/random.ts'
 import type { Quote } from '../../types/quote.ts'
 import { QuoteCard } from '../../ui/QuoteCard/QuoteCard.tsx'
 
@@ -12,7 +12,7 @@ const KeywordView = (): JSX.Element => {
 
   const fetchRandomQuote = useCallback(async (): Promise<void> => {
     if (!tag) return
-    const [quote] = await fetchRandomQuoteByKeyword(tag)
+    const quote = await fetchRandomByKeyword(tag)
     setRandomQuote(quote)
   }, [])
 

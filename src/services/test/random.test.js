@@ -1,4 +1,4 @@
-import { fetchRandomQuoteByAuthor, fetchRandomQuoteByKeyword } from '../random'
+import { fetchRandomByAuthor, fetchRandomByKeyword } from '../random'
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch
@@ -12,7 +12,7 @@ describe('Random Quote Service', () => {
     vi.clearAllMocks()
   })
 
-  describe('fetchRandomQuoteByAuthor', () => {
+  describe('fetchRandomByAuthor', () => {
     it('returns a random quote by author tag', async () => {
       let mockQuote = { a: 'Test author', q: 'Test quote' }
       mockFetch.mockResolvedValueOnce({
@@ -20,12 +20,21 @@ describe('Random Quote Service', () => {
         ok: true
       })
 
-      let result = await fetchRandomQuoteByAuthor('test-author')
-      expect(result).toEqual([mockQuote])
+      let result = await fetchRandomByAuthor('test-author')
+      expect(result).toEqual(mockQuote)
+    })
+
+    it('returns null if fetch fails', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false
+      })
+
+      let result = await fetchRandomByAuthor('test-author')
+      expect(result).toBeNull()
     })
   })
 
-  describe('fetchRandomQuoteByKeyword', () => {
+  describe('fetchRandomByKeyword', () => {
     it('returns a random quote by keyword tag', async () => {
       let mockQuote = { a: 'Test author', q: 'Test quote' }
       mockFetch.mockResolvedValueOnce({
@@ -33,8 +42,17 @@ describe('Random Quote Service', () => {
         ok: true
       })
 
-      let result = await fetchRandomQuoteByKeyword('keyword')
-      expect(result).toEqual([mockQuote])
+      let result = await fetchRandomByKeyword('keyword')
+      expect(result).toEqual(mockQuote)
+    })
+
+    it('returns null if fetch fails', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false
+      })
+
+      let result = await fetchRandomByKeyword('keyword')
+      expect(result).toBeNull()
     })
   })
 })
