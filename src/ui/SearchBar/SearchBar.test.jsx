@@ -5,7 +5,7 @@ import { SearchBar } from './SearchBar'
 describe('SearchBar', () => {
   const mockOnSearch = vi.fn()
   const options = ['Option 1', 'Option 2', 'Option 3']
-  const label = "Search"
+  const label = 'Search'
 
   it('calls onSearch with correct value when search button is clicked', () => {
     render(
