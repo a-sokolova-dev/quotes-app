@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import type { Quote } from '../types/quote'
 
 const API_KEY = import.meta.env.VITE_API_KEY
-const QUOTE_API_URL = `https://zenquotes.io/api/quotes/${API_KEY}`
+const QUOTE_API_URL = `https://zenquotes.io/api/quotes`
 const STORAGE_KEY = 'dailyQuotes'
 
 interface StoredQuotesData {
@@ -36,18 +37,14 @@ function isStoredDateOutdated(storedDate: string): boolean {
 }
 
 async function fetchQuotes(): Promise<null | Quote[]> {
-  try {
-    let response = await fetch(QUOTE_API_URL)
-    if (!response.ok) {
-      throw new Error('Failed to fetch quotes')
-    }
-    let data = await response.json()
-    return data
-  } catch (error) {
-    /* eslint-disable no-console */
-    console.error('Error fetching quotes:', error)
-    return null
-  }
+  let url = `${QUOTE_API_URL}/${API_KEY}`
+
+  return fetch(url)
+    .then(r => r.json())
+    .catch(e => {
+      console.error(e)
+      return null
+    })
 }
 
 function selectQuotes(quotes: Quote[], count: number): Quote[] {

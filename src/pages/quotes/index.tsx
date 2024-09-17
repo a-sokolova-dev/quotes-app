@@ -19,19 +19,19 @@ import { SearchBar } from '../../ui/SearchBar/SearchBar.tsx'
 const Quotes = (): JSX.Element => {
   const navigate = useNavigate()
 
-  const [dailyQuotes, setDailyQuotes] = useState<Quote[]>([])
+  const [quotes, setQuotes] = useState<Quote[]>([])
   const [authors, setAuthors] = useState<Author[]>([])
   const [keywords, setKeywords] = useState<Keyword[]>([])
 
   const tagByName = useMemo(() => getTagByName(authors), [authors])
   const quotesWithAuthorTags = useMemo(
-    () => dailyQuotes.map(q => ({ ...q, t: getAuthorTag(q.a, tagByName) })),
-    [dailyQuotes, tagByName]
+    () => quotes.map(q => ({ ...q, t: getAuthorTag(q.a, tagByName) })),
+    [quotes, tagByName]
   )
 
-  const fetchQuotes = useCallback(async (): Promise<void> => {
-    const quotes = await getDailyQuotes(5)
-    setDailyQuotes(quotes)
+  const loadQuotes = useCallback(async (): Promise<void> => {
+    const fetchedQuotes = await getDailyQuotes(5)
+    setQuotes(fetchedQuotes)
   }, [])
 
   const loadAuthors = useCallback(async (): Promise<void> => {
@@ -55,10 +55,10 @@ const Quotes = (): JSX.Element => {
   }
 
   useEffect(() => {
-    fetchQuotes()
+    loadQuotes()
     loadAuthors()
     loadKeywords()
-  }, [fetchQuotes, fetchAuthors])
+  }, [loadQuotes, loadAuthors, loadKeywords])
 
   return (
     <>
