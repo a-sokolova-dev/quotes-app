@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { Layout } from './Layout'
+import { Layout } from './Layout.tsx'
 
 describe('Layout', () => {
   it('applies correct styles', () => {

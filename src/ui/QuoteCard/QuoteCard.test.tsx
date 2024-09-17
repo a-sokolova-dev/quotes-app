@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react'
+import React from 'react'
 
-import { navigation } from '../../routes'
-import { QuoteCard } from './QuoteCard'
+import { navigation } from '../../routes.ts'
+import { QuoteCard } from './QuoteCard.tsx'
 
 vi.mock('@mui/material', async importOriginal => {
   const mod = await importOriginal()
   return {
-    ...mod,
-    Link: ({ children, to }) => (
+    ...(mod as Object),
+    Link: ({ children, to }: { children: React.ReactNode; to: string }) => (
       <div>
         <a href={to}>{children}</a>
       </div>
@@ -24,6 +25,8 @@ vi.mock('../../routes', () => ({
 describe('QuoteCard', () => {
   const mockBaseQuote = {
     a: 'Test Author',
+    c: '0',
+    h: 'This is a test quote.',
     i: 'https://zenquotes.io/img/test-author.jpg',
     q: 'This is a test quote.'
   }

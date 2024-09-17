@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-import { Router } from './Router'
+import { Router } from './Router.tsx'
 
 vi.mock('../../routes', () => ({
   ROUTES: [
