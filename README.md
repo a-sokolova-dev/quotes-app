@@ -61,7 +61,7 @@ pnpm start
 
 - `pnpm test`: run all tests.
 - `pnpm start`: run development server.
-- `pnpm build`: build production files in web/dist/.
+- `pnpm build`: build production files in dist/.
 - `pnpm build`: preview production build.
 - `pnpm format`: fix code style in all files.
 - `pnpm update-env`: check for Node.js and pnpm updates.
