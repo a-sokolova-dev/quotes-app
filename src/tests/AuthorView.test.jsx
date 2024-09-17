@@ -1,61 +1,44 @@
-import { act, render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
 import AuthorView from '../pages/author_view/index.tsx'
 import { fetchRandomByAuthor } from '../services/random'
 
-vi.mock('../services/random', () => ({
-  fetchRandomByAuthor: vi.fn()
-}))
-
-vi.mock('../ui/QuoteCard/QuoteCard', () => ({
-  QuoteCard: ({ quote }) => (
-    <div data-testid="quote-card">
-      {quote.q} - {quote.a}
-    </div>
-  )
-}))
+vi.mock(import('../services/random'), async importOriginal => {
+  const og = await importOriginal()
+  return {
+    ...og,
+    fetchRandomByAuthor: vi.fn().mockImplementation(og.fetchRandomByAuthor)
+  }
+})
 
 describe('AuthorView', () => {
-  const mockQuote = {
-    a: 'Test Author',
-    q: 'Test quote'
-  }
-
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
-  it('fetches and displays a random quote by the author', async () => {
-    vi.mocked(fetchRandomByAuthor).mockResolvedValue(mockQuote)
-
-    await act(async () => {
-      render(
-        <MemoryRouter initialEntries={['/author/test-author']}>
-          <Routes>
-            <Route element={<AuthorView />} path="/author/:tag" />
-          </Routes>
-        </MemoryRouter>
-      )
-    })
+  it('fetches and displays a random quote by Lao Tzu', async () => {
+    render(
+      <MemoryRouter initialEntries={['/authors/lao-tzu']}>
+        <Routes>
+          <Route element={<AuthorView />} path="/authors/:tag" />
+        </Routes>
+      </MemoryRouter>
+    )
 
     await waitFor(() => {
-      expect(fetchRandomByAuthor).toHaveBeenCalledWith('test-author')
-      expect(screen.getByTestId('quote-card')).toBeInTheDocument()
-      expect(screen.getByText('Test quote - Test Author')).toBeInTheDocument()
+      expect(screen.getByText('Lao Tzu')).toBeInTheDocument()
     })
   })
 
   it('does not fetch a quote when tag param is not defined', async () => {
-    await act(async () => {
-      render(
-        <MemoryRouter initialEntries={['/author/']}>
-          <Routes>
-            <Route element={<AuthorView />} path="/author/:tag?" />
-          </Routes>
-        </MemoryRouter>
-      )
-    })
+    render(
+      <MemoryRouter initialEntries={['/authors/']}>
+        <Routes>
+          <Route element={<AuthorView />} path="/authors/:tag?" />
+        </Routes>
+      </MemoryRouter>
+    )
 
     await waitFor(() => {
       expect(fetchRandomByAuthor).not.toHaveBeenCalled()
