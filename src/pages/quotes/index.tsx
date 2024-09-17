@@ -50,8 +50,7 @@ const Quotes = (): JSX.Element => {
   }
 
   const handleKeywordSearch = (keyword: string): void => {
-    const tag = keyword
-    navigate(navigation.keyword(tag))
+    navigate(navigation.keyword(keyword))
   }
 
   useEffect(() => {
