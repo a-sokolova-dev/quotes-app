@@ -51,6 +51,10 @@ cd quotes-app
 pnpm install
 ```
 
+### Create `.env` file
+
+Create and populate `.env` file using `.env.example` template to access API.
+
 ### Start the development server
 
 ```bash
